@@ -4,13 +4,21 @@ namespace App\Services;
 
 class Weather
 {
-    public function currentWeather($city) {
+    protected function sendRequest($apiCall) {
 
+        $url = 'https://api.meteo.lt/v1/'.$apiCall;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.meteo.lt/v1/places/'.$city.'/forecasts/long-term');
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         $response = json_decode($response, true);
+
+        return $response;
+    }
+
+    public function currentWeather($city) {
+
+        $response = $this->sendRequest('places/'.$city.'/forecasts/long-term');
 
         if (!isset($response['forecastTimestamps'])) {
             return null;
