@@ -24,6 +24,7 @@ class ProductApiController extends Controller {
             return response()->json([
                 'city' => $city,
                 'message' => __("Failed to get weather info."),
+                'weather_data_provider' => 'LHMT',
             ], 400);
         }
 
@@ -31,6 +32,7 @@ class ProductApiController extends Controller {
             'city' => $city,
             'current_weather' => $weather,
             'recommended_products' => $products,
+            'weather_data_provider' => 'LHMT',
         ], 200);
     }
 }
