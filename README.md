@@ -58,4 +58,4 @@ Change city in the url:
 Like this:
 `api/products/recommended/Kaunas`
 
-[Demo](https://beat-the-weather.000webhostapp.com/public/)
+[Demo](https://beat-the-weather.herokuapp.com/)
