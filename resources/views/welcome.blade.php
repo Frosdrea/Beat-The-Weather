@@ -81,7 +81,9 @@
                 </div>
 
                 <div class="links">
-                    {{ __("Weather data from LHMT") }}
+                    {{ __("Weather data from :provider", [
+                        'provider' => config('app.weather_data_provider')
+                    ]) }}
                 </div>
             </div>
         </div>
