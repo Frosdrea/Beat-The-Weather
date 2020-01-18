@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Validator;
+
 class Weather
 {
-    protected function sendRequest($apiCall) {
+    protected function sendRequest($query) {
 
-        $url = 'https://api.meteo.lt/v1/'.$apiCall;
+        $url = 'https://api.meteo.lt/v1/'.$query;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -16,7 +18,29 @@ class Weather
         return $response;
     }
 
+    protected function validate($data, $rules) {
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return [
+                'valid' => false,
+                'errors' => $validator->errors()->all(),
+            ];
+        }
+
+        return ['valid' => true];
+    }
+
     public function currentWeather($city) {
+
+        $validationResult = $this->validate(compact('city'), [
+            'city' => 'string|max:50',
+        ]);
+
+        if (!$validationResult['valid']) {
+            return null;
+        }
 
         $response = $this->sendRequest('places/'.$city.'/forecasts/long-term');
 
