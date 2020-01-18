@@ -18,7 +18,6 @@ class ProductApiController extends Controller {
     public function indexByWeatherInCity($city) {
 
         $weather = Weather::currentWeather($city);
-        $products = $this->repository->getListByWeather($weather);
 
         if (!$weather) {
             return response()->json([
@@ -27,6 +26,8 @@ class ProductApiController extends Controller {
                 'weather_data_provider' => config('app.weather_data_provider'),
             ], 400);
         }
+
+        $products = $this->repository->getListByWeather($weather);
 
         return response()->json([
             'city' => $city,
