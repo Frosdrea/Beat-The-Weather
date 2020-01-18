@@ -6,7 +6,26 @@ class Weather
 {
     public function currentWeather($city) {
 
-        $weather = 'lietus';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.meteo.lt/v1/places/'.$city.'/forecasts/long-term');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        $response = json_decode($response, true);
+
+        if (!isset($response['forecastTimestamps'])) {
+            return null;
+        }
+
+        $forecastTimestamps = collect($response['forecastTimestamps']);
+        $currentforecastTimestamp = $forecastTimestamps
+            ->where('forecastTimeUtc', now()->startOfHour()->startOfMinute())
+            ->first();
+
+        if (!$currentforecastTimestamp) {
+            return null;
+        }
+
+        $weather = $currentforecastTimestamp['conditionCode'] ?? null;
 
         return $weather;
     }

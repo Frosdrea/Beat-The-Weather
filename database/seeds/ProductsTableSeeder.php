@@ -16,13 +16,13 @@ class ProductsTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
         $allPossibleWeatherConditions = Weather::allPossibleWeatherConditions();
 
-        foreach ($allPossibleWeatherConditions as $weather) {
+        foreach ($allPossibleWeatherConditions as $weatherKey => $weather) {
             for ($i = 1; $i <= 10; $i++) {
                 Product::create([
                     'sku' => $faker->ean8(),
                     'name' => $faker->colorName().' '.$faker->word(),
                     'price' => $faker->randomFloat(null, 10, 1000),
-                    'weather' => $weather,
+                    'weather' => $weatherKey,
                 ]);
             }
         }
