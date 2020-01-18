@@ -50,7 +50,6 @@
 
             .links > a {
                 color: #636b6f;
-                padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
@@ -71,7 +70,18 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('products.indexByWeatherInCity', ['Kaunas']) }}">{{ __("Beat it in Kaunas, Lituania!") }}</a>
+                    {{ __("Beat it in") }}
+                    <a href="{{ route('products.indexByWeatherInCity', ['Kaunas']) }}">{{ __("Kaunas") }}</a>,
+                    <a href="{{ route('products.indexByWeatherInCity', ['Vilnius']) }}">{{ __("Vilnius") }}</a> or
+                    <a href="{{ route('products.indexByWeatherInCity', ['Palanga']) }}">{{ __("Palanga") }}</a>?
+                </div>
+
+                <div class="links">
+                    {{ __("To beat in another city just change the city name in the link!") }}
+                </div>
+
+                <div class="links">
+                    {{ __("Weather data from LHMT") }}
                 </div>
             </div>
         </div>
