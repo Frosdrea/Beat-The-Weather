@@ -20,7 +20,7 @@ class ProductsTableSeeder extends Seeder
             for ($i = 1; $i <= 10; $i++) {
                 Product::create([
                     'sku' => $faker->ean8(),
-                    'name' => $faker->word(),
+                    'name' => $faker->colorName().' '.$faker->word(),
                     'price' => $faker->randomFloat(null, 10, 1000),
                     'weather' => $weather,
                 ]);
