@@ -16,3 +16,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Products index by current weather in the city
+Route::get('products/recommended/{city}', ['uses' => 'Api\ProductApiController@indexByWeatherInCity', 'as' => 'products.indexByWeatherInCity']);
